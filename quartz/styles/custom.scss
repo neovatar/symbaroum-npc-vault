@@ -1,3 +1,15 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+// @quartz-themes/core ships a "body a.internal-link { background-color:
+// rgb(from var(--highlight) r g b / 0.3) }" rule inside its own
+// "obsidian-theme" CSS @layer. Layers beat specificity entirely: anything
+// in base.scss lives in the (lower-priority) "quartz-base" layer, so no
+// amount of specificity there can out-rank a theme-layer rule — only
+// unlayered CSS reliably wins over ANY @layer. This file is deliberately
+// emitted unlayered (see componentResources.ts), which is why the
+// override belongs here instead. See CUSTOMIZATIONS.md.
+a.internal.internal-link {
+  background-color: var(--highlight);
+}

@@ -52,3 +52,9 @@ npx quartz build --serve
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the
 site and publishes it to GitHub Pages automatically.
+
+## Customizations
+
+See [`CUSTOMIZATIONS.md`](./CUSTOMIZATIONS.md) for local edits to the
+vendored `quartz/` engine and non-obvious config decisions — check it
+before/after running `npx quartz upgrade`.

@@ -1,0 +1,14 @@
+# Obsidian workspace/local state (machine-specific, not shared)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Node / Quartz
+node_modules/
+public/
+.quartz-cache/
+npm-debug.log*
+
+# OS cruft
+.DS_Store
+Thumbs.db

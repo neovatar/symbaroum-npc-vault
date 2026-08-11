@@ -110,6 +110,11 @@ plugins:
     order: 92
   - source: "@quartz-community/quartz-fonts"
     enabled: true
+    options:
+      header: Texturina
+      body: Manuale
+      code: IBM Plex Mono
+      fontOrigin: googleFonts
   - source: "@quartz-themes/core"
     enabled: true
     options:

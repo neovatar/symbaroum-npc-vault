@@ -18,33 +18,28 @@ configuration:
       body: Manuale
       code: IBM Plex Mono
     colors:
-      # Matched to https://neovatar.github.io/dsnvs/, with dsnvs's
-      # light/dark roles deliberately swapped: OUR lightMode uses dsnvs's
-      # dark-mode bg/text values and vice versa (see CUSTOMIZATIONS.md).
-      # dsnvs has one accent (its link blue, #268bd2) in both modes and no
-      # second accent of its own, so tertiary reuses it instead of an
-      # invented orange (that orange was the source of the pink/brown
-      # graph-node artifact this replaces).
+      # Matched to https://neovatar.github.io/dsnvs/ (Texturina/Manuale
+      # fonts, --link-color/--bkg-color/etc. palette from its theme CSS)
       lightMode:
-        light: "#222222"
-        lightgray: "#515151"
-        gray: "#9a9a9a"
-        darkgray: "#eeeeee"
-        dark: "#dbe2e9"
-        secondary: "#268bd2"
-        tertiary: "#268bd2"
-        highlight: rgba(38, 139, 210, 0.2)
-        textHighlight: "#268bd255"
-      darkMode:
         light: "#faf9f6"
         lightgray: "#e5e5e5"
         gray: "#909090"
         darkgray: "#222222"
         dark: "#000000"
         secondary: "#268bd2"
-        tertiary: "#268bd2"
+        tertiary: "#ff6600"
         highlight: rgba(38, 139, 210, 0.15)
-        textHighlight: "#268bd255"
+        textHighlight: "#ff660055"
+      darkMode:
+        light: "#222222"
+        lightgray: "#515151"
+        gray: "#9a9a9a"
+        darkgray: "#eeeeee"
+        dark: "#dbe2e9"
+        secondary: "#268bd2"
+        tertiary: "#ff6600"
+        highlight: rgba(38, 139, 210, 0.2)
+        textHighlight: "#ff660055"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true

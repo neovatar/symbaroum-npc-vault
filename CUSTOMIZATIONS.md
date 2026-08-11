@@ -22,7 +22,27 @@ obvious from the setting itself.
 - **If it reappears after an upgrade:** find the `.tag-link` `::before`
   rule in `quartz/styles/base.scss` again and delete it.
 
-## Config gotchas worth remembering
+## Design decisions worth remembering
+
+### Light/dark colors are dsnvs's, deliberately swapped
+
+- **File:** `quartz.config.yaml`, `configuration.theme.colors`
+- **What:** `lightMode` uses the bg/text/etc. values from
+  [dsnvs](https://neovatar.github.io/dsnvs/)'s *dark* mode, and `darkMode`
+  uses dsnvs's *light* mode values. This is intentional, not a mistake —
+  when the viewer's system is in light mode, the site renders with dsnvs's
+  dark palette, and vice versa.
+- **Why:** Explicit user choice (asked and confirmed) when fixing a
+  pink/brown color artifact in the graph view.
+- **Also:** `tertiary` is set equal to `secondary` (`#268bd2`, dsnvs's one
+  link-blue accent) in both modes. It was previously an invented orange
+  (`#ff6600`, pulled from an unrelated syntax-highlighting class on
+  dsnvs) — the graph's `quartz-community/graph` plugin uses `--tertiary`
+  for visited-node fill and tag-node outlines, and a small orange
+  shape/outline read as pink (light mode) or muddy brown (dark mode).
+  dsnvs doesn't actually have a second accent color of its own, so if you
+  want a distinct `tertiary` again, it'll need to be chosen fresh rather
+  than pulled from dsnvs.
 
 ### Font must be set in *two* places
 

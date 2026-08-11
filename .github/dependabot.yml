@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # GitHub Actions: bundle all updates into a single weekly PR, with a
+  # 3-day cooldown before adopting new releases (buffer against
+  # compromised/regressed action releases, e.g. the tj-actions incident).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 3

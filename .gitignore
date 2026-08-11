@@ -1,12 +1,14 @@
 # Obsidian workspace/local state (machine-specific, not shared)
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache
+content/.obsidian/workspace.json
+content/.obsidian/workspace-mobile.json
+content/.obsidian/cache
 
 # Node / Quartz
 node_modules/
 public/
 .quartz-cache/
+.quartz/
+tsconfig.tsbuildinfo
 npm-debug.log*
 
 # OS cruft

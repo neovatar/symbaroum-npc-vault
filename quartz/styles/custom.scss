@@ -2,14 +2,52 @@
 
 // put your custom CSS here!
 
-// @quartz-themes/core ships a "body a.internal-link { background-color:
-// rgb(from var(--highlight) r g b / 0.3) }" rule inside its own
-// "obsidian-theme" CSS @layer. Layers beat specificity entirely: anything
-// in base.scss lives in the (lower-priority) "quartz-base" layer, so no
-// amount of specificity there can out-rank a theme-layer rule — only
-// unlayered CSS reliably wins over ANY @layer. This file is deliberately
-// emitted unlayered (see componentResources.ts), which is why the
-// override belongs here instead. See CUSTOMIZATIONS.md.
+// @quartz-themes/core's "obsidian-theme" CSS @layer redefines EVERY one
+// of Quartz's core theme variables (--secondary, --tertiary, --light,
+// --highlight, etc.) by bridging them through its own Obsidian-native
+// variable names (--text-accent, --color-base-00, --text-highlight-bg,
+// ...), so it can drive ported Obsidian themes. We're not using a ported
+// theme (`theme: default`), so most of those bridges just happen to
+// resolve back to something close to our real colors via computed
+// hsl()s — except --highlight/--textHighlight, which fall through to a
+// hardcoded literal `rgba(255, 208, 0, 0.4)` (Obsidian's default
+// text-highlighter yellow) with no connection to quartz.config.yaml at
+// all. That's the "brownish/pinkish" background bug.
+//
+// CSS @layer priority beats specificity entirely — a rule in the
+// higher-priority "obsidian-theme" layer always wins over anything in
+// "quartz-base" (where base.scss and our own :root color block live), no
+// matter how specific the "quartz-base" rule is. Only unlayered CSS
+// reliably beats every layer. This file is deliberately emitted
+// unlayered (see componentResources.ts), so we re-pin ALL the theme
+// variables here, unlayered, as the single source of truth — rather than
+// patch collisions one at a time as they're discovered. Keep this in
+// sync with quartz.config.yaml's `configuration.theme.colors` by hand.
+// See CUSTOMIZATIONS.md.
+:root {
+  --light: #faf9f6;
+  --lightgray: #e5e5e5;
+  --gray: #909090;
+  --darkgray: #222222;
+  --dark: #000000;
+  --secondary: #268bd2;
+  --tertiary: #268bd2;
+  --highlight: #268bd226; // rgba(38, 139, 210, 0.15)
+  --textHighlight: #268bd255;
+}
+
+:root[saved-theme="dark"] {
+  --light: #222222;
+  --lightgray: #515151;
+  --gray: #9a9a9a;
+  --darkgray: #eeeeee;
+  --dark: #dbe2e9;
+  --secondary: #268bd2;
+  --tertiary: #268bd2;
+  --highlight: #268bd233; // rgba(38, 139, 210, 0.2)
+  --textHighlight: #268bd255;
+}
+
 a.internal.internal-link {
   background-color: var(--highlight);
 }

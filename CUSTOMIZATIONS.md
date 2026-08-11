@@ -24,8 +24,7 @@ obvious from the setting itself.
 
 ### Custom overrides go in `custom.scss`, never `base.scss`
 
-- **File:** `quartz/styles/custom.scss` (see the rule already there for a
-  worked example)
+- **File:** `quartz/styles/custom.scss`
 - **What:** Quartz wraps `base.scss` in `@layer quartz-base` when it
   builds the CSS bundle (`componentResources.ts`). CSS `@layer` priority
   beats specificity *entirely* — a low-specificity rule in a
@@ -35,21 +34,41 @@ obvious from the setting itself.
   concatenated *outside* any `@layer` block, and unlayered CSS always
   beats layered CSS regardless of layer order — so any override that
   needs to reliably win belongs there, not in `base.scss`.
-- **Real example this bit us:** `@quartz-themes/core` ships
-  `body a.internal-link { background-color: rgb(from var(--highlight) r g
-  b / 0.3) }` inside its `obsidian-theme` layer. Every tag pill and
-  internal-link Quartz renders carries both the `.internal` and
-  `.internal-link` classes, so this rule was silently overriding our
-  intended `--highlight` background on every link/tag on the site — no
-  amount of editing `quartz.config.yaml` colors touched it, because it
-  was never the losing side of a specificity fight, it was in a lower
-  layer entirely. Fixed with an unlayered override in `custom.scss`.
+
+### All theme color variables are re-pinned, unlayered, in `custom.scss`
+
+- **File:** `quartz/styles/custom.scss`
+- **What:** A `:root { --light: ...; --secondary: ...; ... }` /
+  `:root[saved-theme="dark"] { ... }` block that duplicates
+  `quartz.config.yaml`'s `configuration.theme.colors` values verbatim,
+  emitted unlayered. **If you change the colors in `quartz.config.yaml`,
+  you must also update this block by hand** — they aren't derived from
+  each other.
+- **Why:** `@quartz-themes/core`'s `obsidian-theme` layer redefines
+  *every* one of Quartz's theme variables (`--secondary`, `--tertiary`,
+  `--light`, `--highlight`, `--textHighlight`, ...) by bridging them
+  through its own Obsidian-native variable names (`--text-accent`,
+  `--color-base-00`, `--text-highlight-bg`, ...), so ported Obsidian
+  themes can drive them. We use `theme: default` (no ported theme), so
+  most of those bridges happen to resolve back to something close to our
+  real colors via computed `hsl()`s — except `--highlight` and
+  `--textHighlight`, which fall through to a hardcoded literal
+  `rgba(255, 208, 0, 0.4)` (Obsidian's default text-highlighter yellow)
+  with **no connection to `quartz.config.yaml` at all**. That's what was
+  actually producing the "pink/brown" tag-pill/link backgrounds reported
+  — not the `body a.internal-link` rule from the first attempt (fixing
+  which selector rule such that background-color rule "wins" doesn't
+  matter if the `--highlight` *variable itself* is hijacked to something
+  else higher up — that's what actually happened here, and cost two
+  rounds of "fixes" that changed nothing visible before it was found).
 - **If colors/styles don't seem to apply and you're sure the config is
-  right:** check the browser devtools "Styles" panel for which selector
-  is actually winning. If it's coming from `@quartz-themes/core` or
-  another plugin (not `quartz.config.yaml` or your own content), it's
-  almost certainly a `@layer` priority issue — override it from
-  `custom.scss`, not by tweaking specificity in `base.scss`.
+  right:** don't just check which *rule* wins in devtools — also check
+  the **Computed** tab for the actual resolved value of the CSS
+  *variable* itself (e.g. `--highlight`), since `@quartz-themes/core` can
+  hijack the variable's value in a higher layer even when your own rule
+  correctly wins the property fight. If a variable's computed value
+  doesn't match `quartz.config.yaml`, add/update it in this `:root` /
+  `:root[saved-theme="dark"]` block in `custom.scss`.
 
 ## Design decisions worth remembering
 

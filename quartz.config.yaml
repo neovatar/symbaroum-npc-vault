@@ -14,30 +14,32 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
+      header: Texturina
+      body: Manuale
       code: IBM Plex Mono
     colors:
+      # Matched to https://neovatar.github.io/dsnvs/ (Texturina/Manuale
+      # fonts, --link-color/--bkg-color/etc. palette from its theme CSS)
       lightMode:
-        light: "#faf8f8"
+        light: "#faf9f6"
         lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        gray: "#909090"
+        darkgray: "#222222"
+        dark: "#000000"
+        secondary: "#268bd2"
+        tertiary: "#ff6600"
+        highlight: rgba(38, 139, 210, 0.15)
+        textHighlight: "#ff660055"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#222222"
+        lightgray: "#515151"
+        gray: "#9a9a9a"
+        darkgray: "#eeeeee"
+        dark: "#dbe2e9"
+        secondary: "#268bd2"
+        tertiary: "#ff6600"
+        highlight: rgba(38, 139, 210, 0.2)
+        textHighlight: "#ff660055"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true

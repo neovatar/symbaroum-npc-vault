@@ -9,7 +9,7 @@ configuration:
   locale: en-US
   baseUrl: neovatar.github.io/symbaroum-npc-vault
   ignorePatterns:
-    - Templates
+    - Templates/**
     - .obsidian
   theme:
     fontOrigin: googleFonts

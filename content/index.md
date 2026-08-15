@@ -9,4 +9,5 @@ Symbaroum campaign.
 - Browse [[NPCs]] by name
 - Browse [[Locations]]
 - Browse [[Factions]]
+- Browse [[Houses]]
 - Or explore the graph in the sidebar to see how everything connects

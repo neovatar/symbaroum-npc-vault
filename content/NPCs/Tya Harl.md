@@ -10,6 +10,6 @@ publish: true
 ![[tya.webp|200]]
 
 ## Notes
-- Templerin
+- Lady, Templerin
 - hat einen Überlebenden der Gruppe verhaftet, die den Eox enthauptet haben
 

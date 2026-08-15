@@ -1,5 +1,4 @@
 ---
-name: Thistle Hold
 region: Davokar borderlands
 publish: true
 ---

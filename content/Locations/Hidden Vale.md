@@ -1,5 +1,4 @@
 ---
-name: Hidden Vale
 region:
 publish: true
 ---

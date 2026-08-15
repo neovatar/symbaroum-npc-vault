@@ -1,5 +1,4 @@
 ---
-name: Arex's Boundary
 region:
 publish: true
 ---

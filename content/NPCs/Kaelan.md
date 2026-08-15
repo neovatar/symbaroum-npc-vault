@@ -1,6 +1,6 @@
 ---
 aliases: []
-location: "[[Arex’s Boundary]]"
+location: "[[Arex Boundary]]"
 faction:
 house: "[[Clan Baiaga]]"
 status: alive

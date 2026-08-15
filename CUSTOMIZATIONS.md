@@ -12,15 +12,16 @@ obvious from the setting itself.
 
 ## Engine-source edits (`quartz/`) — re-check after `quartz upgrade`
 
-### Removed `#` prefix from tag links
+### `#` prefix on tag links — reverted, kept as stock
 
 - **File:** `quartz/styles/base.scss`
-- **What:** Deleted the `&.tag-link { &::before { content: "#"; } }` rule
-  (was nested under the `a` selector, right after `&:has(> img)`).
-- **Why:** Preference — tags render as `location/thistle-hold` instead of
-  `#location/thistle-hold`.
-- **If it reappears after an upgrade:** find the `.tag-link` `::before`
-  rule in `quartz/styles/base.scss` again and delete it.
+- **What:** Originally deleted the `&.tag-link { &::before { content: "#";
+  } }` rule (preference: tags render as `location` instead of
+  `#location`), then reverted — the rule is back, nested under the `a`
+  selector, right after `&:has(> img)`. Tags render with the `#` prefix
+  again (stock Quartz behavior).
+- **If it goes missing after an upgrade:** nothing to do — this is stock
+  behavior now, not a customization to reapply.
 
 ### Custom overrides go in `custom.scss`, never `base.scss`
 
@@ -69,6 +70,36 @@ obvious from the setting itself.
   correctly wins the property fight. If a variable's computed value
   doesn't match `quartz.config.yaml`, add/update it in this `:root` /
   `:root[saved-theme="dark"]` block in `custom.scss`.
+
+### `@quartz-themes/core`'s CSS bundle leaks unlayered content past its own closing brace
+
+- **File:** `quartz/styles/custom.scss`, selectors targeting
+  `a.internal.internal-link` (e.g. tag pill styling)
+- **What:** `@quartz-themes/core` emits a large (~400KB+) CSS bundle
+  wrapped in `@layer obsidian-theme { ... }`. That wrapper's closing brace
+  actually lands **~9.5KB before the file's real end** — the last chunk of
+  the bundle (icon colors, `a.internal-link` text-decoration reset, etc.)
+  is emitted *outside* the layer, i.e. genuinely unlayered CSS, same as
+  this file. Once both sides are unlayered, `@layer` priority no longer
+  decides anything and it comes down to plain CSS specificity — their
+  `:root[saved-theme="..."] body a.internal-link { text-decoration: none;
+  }` rule is `(0,3,2)` vs. a plain `a.internal.internal-link { ... }`
+  rule's `(0,2,1)`, so **they win** despite this file being unlayered too.
+- **Fix:** match/exceed their specificity explicitly rather than relying
+  on this file's unlayered status alone. Current pattern:
+  ```scss
+  :root[saved-theme="light"] a.internal.internal-link,
+  :root[saved-theme="dark"] a.internal.internal-link,
+  a.internal.internal-link {
+    /* ... */
+  }
+  ```
+- **If a future override on `a.internal-link`/`a.internal.internal-link`
+  doesn't apply despite being unlayered in `custom.scss`:** don't assume
+  unlayered-vs-unlayered always favors this file — check computed
+  specificity of both rules in devtools. This bundle's leak is a bug/quirk
+  in `@quartz-themes/core`'s build, not something we control, and could
+  shift (or be fixed) on a `quartz upgrade`/package update.
 
 ## Design decisions worth remembering
 

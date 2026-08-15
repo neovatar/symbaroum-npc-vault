@@ -114,6 +114,12 @@ a {
     }
   }
 
+  &.tag-link {
+    &::before {
+      content: "#";
+    }
+  }
+
   &.external .external-icon {
     height: 1ex;
     margin: 0 0.15em;

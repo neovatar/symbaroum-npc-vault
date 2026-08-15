@@ -2,7 +2,6 @@
 name: Iron Pact
 tags:
   - faction
-  - faction/iron-pact
 publish: true
 ---
 

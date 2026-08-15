@@ -10,15 +10,14 @@ with an interactive relationship graph.
 
 The Markdown source in this repo — including any note with
 `publish: false` — is publicly readable on GitHub, even though those notes
-are excluded from the *built site*. **Do not put real spoilers, secrets, or
-sensitive plot info in this repo.** Keep true GM secrets somewhere else
-entirely (a private notes app, a private repo, etc.) and only put
-player-safe summaries here, or content you're fine with players
-technically being able to find if they go looking at the raw repo.
+are excluded from the *built site*. This is one player's personal campaign
+notes (in-character knowledge, theories, etc.), not GM material, but
+**don't put anything here you wouldn't want other players in the group
+stumbling across.**
 
 ## Structure
 
-- `content/NPCs/`, `content/Locations/`, `content/Factions/` — the actual
+- `content/NPCs/`, `content/Locations/`, `content/Factions/`, `content/Houses/` — the actual
   vault content. Open `content/` as your Obsidian vault root.
 - `content/Templates/` — note templates for new NPCs/Locations/Factions.
   Excluded from the build via `ignorePatterns` in `quartz.config.yaml`.
@@ -31,15 +30,25 @@ technically being able to find if they go looking at the raw repo.
 Every note that should appear on the live site needs `publish: true` in
 its frontmatter (see `content/Templates/`) — the
 [`explicit-publish`](https://github.com/quartz-community/explicit-publish)
-plugin only builds pages that opt in explicitly. Location/faction are
-recorded both as frontmatter properties (for structured data) and as
-nested tags like `#faction/iron-pact` (so Quartz's tag pages and Obsidian's
-tag pane work natively).
+plugin only builds pages that opt in explicitly. Tags are simple, flat
+category labels only (`npc`, `location`, `faction`, `house`) — no nested
+tags. Connections between notes (an NPC's location/faction, etc.) go only
+in frontmatter properties and `[[wikilinks]]`, never encoded as a tag.
 
-Companion GM-notes files use `publish: false` and are named
-`Name (GM).md`. See `content/Templates/NPC Template.md` and
-`content/GM Index.md` for the convention — again, treat these as "hidden
-from the built site," not "actually private," given this repo is public.
+## Portraits
+
+NPC portrait images live in `content/NPCs/attachments/`, one file per NPC
+(e.g. `elyn-thornwood.jpg`). Embed the portrait as the first line of the
+note body, right after the frontmatter, using Obsidian embed syntax with a
+width so it doesn't render huge:
+
+```markdown
+![[elyn-thornwood.jpg|200]]
+```
+
+No build config is needed — Quartz's `Assets` emitter copies every
+non-Markdown file under `content/` verbatim, and the
+`obsidian-flavored-markdown` plugin already resolves `![[...]]` embeds.
 
 ## Local development
 

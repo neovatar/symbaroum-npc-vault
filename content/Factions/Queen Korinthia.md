@@ -1,6 +1,5 @@
 ---
-region:
 publish: true
 ---
 ## Notes
-- 
+- Königin Korinthia

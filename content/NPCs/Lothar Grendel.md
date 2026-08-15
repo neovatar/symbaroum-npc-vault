@@ -1,7 +1,7 @@
 ---
 aliases: []
 location:
-faction:
+faction: "[[Queen Korinthia]]"
 house:
 status: alive
 publish: true
@@ -10,4 +10,4 @@ publish: true
 ![[portrait.webp|200]]
 
 ## Notes
-- 
+- Legat der Königin in [[Karvosti]]

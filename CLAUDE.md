@@ -23,14 +23,20 @@ next session doesn't have to rediscover it.
 
 - Notes need `publish: true` in frontmatter to appear on the site
   (`explicit-publish` plugin, fail-closed).
-- Location/faction are recorded both as frontmatter properties and as
-  mirrored nested tags (`#faction/x` — rendered without the `#`, see
-  `CUSTOMIZATIONS.md`).
-- GM-only content uses `publish: false` + a `Name (GM).md` companion note,
-  never inline in a published note. **This repo is public** — that flag
-  only controls the built site, not GitHub's raw file view.
+- Connections between notes (an NPC's location/faction, a house's/faction's
+  base of operations, etc.) go **only** in frontmatter properties (e.g.
+  `location: "[[Thistle Hold]]"`, `faction: "[[Iron Pact]]"`) and/or
+  `[[wikilinks]]` in the body — never encoded as a tag. Tags are for
+  filtering by category, not for relationships.
+- This is one player's personal campaign notes, not GM material. **This
+  repo is public** — `publish: false` only controls the built site, not
+  GitHub's raw file view, so don't put anything here you wouldn't want
+  other players in the group to stumble across.
 - `content/Templates/` and `content/.obsidian/` are excluded from the
   build via `ignorePatterns`, not via `publish`.
+- NPC portraits go in `content/NPCs/attachments/`, one image per NPC,
+  embedded as the first line of the note body (`![[name.jpg|200]]`). See
+  "Portraits" in `README.md`.
 
 ## Verifying changes
 

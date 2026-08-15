@@ -1,5 +1,5 @@
 ---
-region:
+name: Nature
 publish: true
 ---
 ## Notes

@@ -1,5 +1,5 @@
 ---
-region:
+name: Templars
 publish: true
 ---
 ## Notes

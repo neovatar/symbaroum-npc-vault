@@ -24,17 +24,17 @@
 // patch collisions one at a time as they're discovered. Keep this in
 // sync with quartz.config.yaml's `configuration.theme.colors` by hand.
 // See CUSTOMIZATIONS.md.
-:root {
-  --light: #faf9f6;
-  --lightgray: #e5e5e5;
-  --gray: #909090;
-  --darkgray: #222222;
-  --dark: #000000;
-  --secondary: #268bd2;
-  --tertiary: #268bd2;
-  --highlight: #f6f6f6;
-  --textHighlight: #268bd255;
-}
+// :root {
+//   --light: #222222;
+//   --lightgray: #515151;
+//   --gray: #9a9a9a;
+//   --darkgray: #eeeeee;
+//   --dark: #dbe2e9;
+//   --secondary: #268bd2;
+//   --tertiary: #268bd2;
+//   --highlight: #282828;
+//   --textHighlight: #268bd255;
+// }
 
 :root[saved-theme="dark"] {
   --light: #222222;
@@ -48,6 +48,42 @@
   --textHighlight: #268bd255;
 }
 
-a.internal.internal-link {
-  background-color: var(--highlight);
+// Specificity, not just @layer, matters here: @quartz-themes/core's CSS
+// bundle has a `:root[saved-theme=...] body a.internal-link { text-decoration:
+// none; }` rule that's supposed to be inside its `@layer obsidian-theme`
+// block but the bundle's closing brace lands ~9.5KB before EOF, so this
+// rule leaks out unlayered — same layer status as this file, so it's a
+// plain specificity fight, and `:root[attr] body a.internal-link` (0,3,2)
+// beats `a.internal.internal-link` (0,2,1). See CUSTOMIZATIONS.md.
+:root[saved-theme="dark"] a.internal.internal-link,
+html[saved-theme="dark"] .breadcrumb-container .breadcrumb-element > a {
+  color: #eee;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+
+  &:hover {
+    text-decoration-color: currentcolor;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: auto;
+  }
+}
+
+html[saved-theme="dark"] body ul.tags > li {
+  background-color: transparent;
+}
+
+a.internal {
+  color: #eee;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+
+  &:hover {
+    text-decoration-color: currentcolor;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: auto;
+  }
 }

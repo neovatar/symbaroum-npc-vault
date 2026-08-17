@@ -2,7 +2,7 @@
 aliases: []
 location: "[[Thistle Hold]]"
 faction: "[[Prios Priesthood]]"
-house:
+house: [[House Argona]]
 status: alive
 publish: true
 ---
